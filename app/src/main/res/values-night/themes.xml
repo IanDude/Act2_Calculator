@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Act2_Calculator" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+    <style name="MainLayout">
+        <item name="android:background">@drawable/gradiendark</item>
+    </style>
+    <style name="MainButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:textColor">@color/Color3</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="backgroundColor">@color/Color1</item>
+    </style>
+    <style name="TextviewStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="FuncButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="backgroundTint">@color/Color2</item>
+    </style>
+    <style name="OpeButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="backgroundTint">@color/Color3</item>
+    </style>
+</resources>
