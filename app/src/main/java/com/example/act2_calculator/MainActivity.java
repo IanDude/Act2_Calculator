@@ -2,9 +2,6 @@ package com.example.act2_calculator;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +16,9 @@ import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView solution, result;
+    TextView solution;
     MaterialButton btnclear,btnbckspc,btndivide,btnmulti,btnminus,btnplus,btnequals,btndot,btnmod,
-            btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9, switchtheme;
+            btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
 
 
     @Override
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return insets;
         });
         solution = findViewById(R.id.solution);
-        result = findViewById(R.id.result);
 
         assignId(btnclear,R.id.btnclear);
         assignId(btnbckspc,R.id.btnbckspc);
@@ -65,11 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         String buttontext = ((MaterialButton)view).getText().toString();
         String dataToCalculate = solution.getText().toString();
-        String currentResult = result.getText().toString();
+        String currentResult = "";
         //resets everything back
         if (buttontext.equals("C")){
             solution.setText("");
-            result.setText("0");
             return;
         }
         //solves the input
@@ -79,18 +74,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 String finalResult = getResult(dataToCalculate);
+                currentResult = finalResult;
                 if(!finalResult.equals("Error")){
-                    result.setText(finalResult);
-                    solution.setText("");
+                    solution.setText(finalResult);
                 }
             return;
         }
         //checks if button clicked is % and calculates it already to the decimal point
-        if (buttontext.equals("%")){
-            if (!dataToCalculate.isEmpty() && isNumeric(dataToCalculate)){
-                Double value = Double.parseDouble(dataToCalculate)/100.0;
-                result.setText(String.valueOf(value));
-                solution.setText("");
+        if (buttontext.equals("%")) {
+            if (!dataToCalculate.isEmpty() && isNumeric(lastOperand(dataToCalculate))) {
+                // Get the last operand and convert it to percentage
+                String lastOperand = lastOperand(dataToCalculate);
+                double percentValue = Double.parseDouble(lastOperand) / 100.0;
+                dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - lastOperand.length()) + percentValue;
+                solution.setText(dataToCalculate);
             }
             return;
         }
@@ -98,21 +95,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(buttontext.equals("⌫")){
             if(!dataToCalculate.isEmpty()){
                 dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1);
+
             }
         }else if(isOperator(buttontext)) {
             //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
             if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
                 return;
             }
-            if (!currentResult.equals("0")) {
-                dataToCalculate = currentResult;
-            }
             dataToCalculate += buttontext;
-            result.setText("0");
 
         }else{
             dataToCalculate += buttontext;
         }
+
         solution.setText(dataToCalculate);
 
     }
@@ -124,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //calculate the result for all the inputs
     public String getResult(String data){
         data = convertDoubleOperators(data);
+        data = data.replace("x","*");
         try{
             Context context = Context.enter();
             context.setOptimizationLevel(-1);
@@ -134,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return finalResult;
         }catch (Exception e){
-            e.printStackTrace();
             return "Error";
         }finally {
             Context.exit();
@@ -168,6 +163,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }catch (NumberFormatException e){
             return false;
         }
+    }
+    private String lastOperand(String data) {
+        String[] tokens = data.split("[-+x/]");
+        return tokens[tokens.length - 1];
     }
 
     }
