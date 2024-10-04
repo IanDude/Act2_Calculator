@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/solution"
         android:text=""
-        android:textSize="76dp"
+        android:textSize="76sp"
         android:textAlignment="textEnd"
         android:layout_margin="16dp"
         android:layout_above="@+id/buttonslayout"
@@ -35,25 +35,25 @@
                 android:id="@+id/btnclear"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="C"
+                android:text="@string/Clear"
                 style="@style/FuncButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnbckspc"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="⌫"
+                android:text="@string/bckspc"
                 style="@style/FuncButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnmod"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="%"
+                android:text="@string/Percent"
                 style="@style/OpeButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btndivide"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="/"
+                android:text="@string/Div"
                 style="@style/OpeButtonStyle"/>
 
         </LinearLayout>
@@ -66,26 +66,26 @@
                 android:id="@+id/btn7"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="7"
+                android:text="@string/n7"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn8"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="8"
+                android:text="@string/n8"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn9"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="9"
+                android:text="@string/n9"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnmulti"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:textSize="25dp"
-                android:text="x"
+                android:textSize="25sp"
+                android:text="@string/Mult"
                 style="@style/OpeButtonStyle"/>
         </LinearLayout>
         <LinearLayout
@@ -97,25 +97,25 @@
                 android:id="@+id/btn4"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="4"
+                android:text="@string/n4"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn5"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="5"
+                android:text="@string/n5"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn6"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="6"
+                android:text="@string/n6"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnminus"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="-"
+                android:text="@string/Minus"
                 style="@style/OpeButtonStyle"/>
         </LinearLayout>
         <LinearLayout
@@ -127,25 +127,25 @@
                 android:id="@+id/btn1"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="1"
+                android:text="@string/n1"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn2"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="2"
+                android:text="@string/n2"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn3"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="3"
+                android:text="@string/n3"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnplus"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="+"
+                android:text="@string/Plus"
                 style="@style/OpeButtonStyle"/>
         </LinearLayout>
         <LinearLayout
@@ -157,19 +157,19 @@
                 android:id="@+id/btn0"
                 android:layout_width="168dp"
                 android:layout_height="72dp"
-                android:text="0"
+                android:text="@string/n0"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btndot"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="."
+                android:text="@string/Dot"
                 style="@style/MainButtonStyle"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btneqls"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:text="="
+                android:text="@string/Equals"
                 style="@style/OpeButtonStyle"/>
         </LinearLayout>
 

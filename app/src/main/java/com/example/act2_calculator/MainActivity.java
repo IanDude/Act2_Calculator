@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         String buttontext = ((MaterialButton)view).getText().toString();
         String dataToCalculate = solution.getText().toString();
-        String currentResult = "";
         //resets everything back
         if (buttontext.equals("C")){
             solution.setText("");
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 String finalResult = getResult(dataToCalculate);
-                currentResult = finalResult;
                 if(!finalResult.equals("Error")){
                     solution.setText(finalResult);
                 }
