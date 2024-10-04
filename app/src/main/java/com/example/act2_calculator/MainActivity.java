@@ -33,28 +33,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         solution = findViewById(R.id.solution);
 
-        assignId(btnclear,R.id.btnclear);
-        assignId(btnbckspc,R.id.btnbckspc);
-        assignId(btndivide,R.id.btndivide);
-        assignId(btnmulti,R.id.btnmulti);
-        assignId(btnminus,R.id.btnminus);
-        assignId(btnplus,R.id.btnplus);
-        assignId(btnequals,R.id.btneqls);
-        assignId(btndot,R.id.btndot);
-        assignId(btnmod,R.id.btnmod);
-        assignId(btn0,R.id.btn0);
-        assignId(btn1,R.id.btn1);
-        assignId(btn2,R.id.btn2);
-        assignId(btn3,R.id.btn3);
-        assignId(btn4,R.id.btn4);
-        assignId(btn5,R.id.btn5);
-        assignId(btn6,R.id.btn6);
-        assignId(btn7,R.id.btn7);
-        assignId(btn8,R.id.btn8);
-        assignId(btn9,R.id.btn9);
+        assignId(R.id.btnclear);
+        assignId(R.id.btnbckspc);
+        assignId(R.id.btndivide);
+        assignId(R.id.btnmulti);
+        assignId(R.id.btnminus);
+        assignId(R.id.btnplus);
+        assignId(R.id.btneqls);
+        assignId(R.id.btndot);
+        assignId(R.id.btnmod);
+        assignId(R.id.btn0);
+        assignId(R.id.btn1);
+        assignId(R.id.btn2);
+        assignId(R.id.btn3);
+        assignId(R.id.btn4);
+        assignId(R.id.btn5);
+        assignId(R.id.btn6);
+        assignId(R.id.btn7);
+        assignId(R.id.btn8);
+        assignId(R.id.btn9);
     }
-    public void assignId(MaterialButton btn, int id){
-        btn = findViewById(id);
+    public void assignId(int id){
+        MaterialButton btn = findViewById(id);
         btn.setOnClickListener(this);
     }
     @Override
