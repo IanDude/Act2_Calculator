@@ -17,8 +17,6 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView solution;
-    MaterialButton btnclear,btnbckspc,btndivide,btnmulti,btnminus,btnplus,btnequals,btndot,btnmod,
-            btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
 
 
     @Override
