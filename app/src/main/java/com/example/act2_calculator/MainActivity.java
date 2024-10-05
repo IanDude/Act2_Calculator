@@ -744,10 +744,16 @@ public class MainActivity extends AppCompatActivity {
     // Function to adjust text size based on character hello test
     private void adjustTextSize(TextView displayText) {
         String text = displayText.getText().toString();
-        if (text.length() > 8) {
-            displayText.setTextSize(60); // Adjust this value as necessary
-        } else {
-            displayText.setTextSize(70); // Reset to default size
+        if (text.length() > 18 && text.length() <= 25) {
+            displayText.setTextSize(56); // Adjust this value as necessary
+        }else if(text.length() > 25 && text.length() <= 38){
+            displayText.setTextSize(50);
+        }else if(text.length() > 38 && text.length() <= 42){
+            displayText.setTextSize(40);
+        }else if(text.length() > 46){
+            displayText.setTextSize(34);
+        }else {
+            displayText.setTextSize(60); // Reset to default size
         }
     }
     private String previousResult = "/";
