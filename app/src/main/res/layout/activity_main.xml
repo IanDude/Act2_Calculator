@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:orientation="vertical"
     style="@style/MainLayout">
 
 
@@ -30,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="9dp"
+            android:paddingEnd="9dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -62,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="9dp"
+            android:paddingEnd="9dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -94,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="9dp"
+            android:paddingEnd="9dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -125,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="9dp"
+            android:paddingEnd="9dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -156,11 +161,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="9dp"
+            android:paddingEnd="9dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnrot"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:text="@string/rotate"
+                style="@style/FuncButtonStyle"/>
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn0"
-                android:layout_width="168dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:text="@string/n0"
                 style="@style/MainButtonStyle"/>

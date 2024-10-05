@@ -8,27 +8,51 @@
         <item name="android:background">@drawable/gradiendark</item>
     </style>
     <style name="MainButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">15dp</item>
-        <item name="android:textSize">35dp</item>
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textColor">@color/Color3</item>
-        <item name="android:layout_margin">12dp</item>
+        <item name="android:layout_margin">12sp</item>
         <item name="backgroundColor">@color/Color1</item>
     </style>
     <style name="TextviewStyle">
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="FuncButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">15dp</item>
-        <item name="android:textSize">35dp</item>
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_margin">12dp</item>
+        <item name="android:layout_margin">12sp</item>
         <item name="backgroundTint">@color/Color2</item>
     </style>
     <style name="OpeButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">15dp</item>
-        <item name="android:textSize">35dp</item>
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_margin">12dp</item>
+        <item name="android:layout_margin">12sp</item>
         <item name="backgroundTint">@color/Color3</item>
+    </style>
+
+    <!--The second copy of styles specified for landscape orientation-->
+
+    <style name="MainButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/Color3</item>
+        <item name="android:layout_marginStart">15sp</item>
+        <item name="backgroundColor">@color/Color1</item>
+    </style>
+    <style name="FuncButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:layout_marginStart">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/Color3</item>
+    </style>
+    <style name="OpeButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15sp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:layout_marginStart">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/Color2</item>
     </style>
 </resources>

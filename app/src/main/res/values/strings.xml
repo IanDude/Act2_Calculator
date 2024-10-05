@@ -12,6 +12,7 @@
     <string name="Minus">-</string>
     <string name="Dot">.</string>
     <string name="Equals">=</string>
+    <string name="rotate">↺</string>
     <string name="n0">0</string>
     <string name="n1">1</string>
     <string name="n2">2</string>
@@ -23,5 +24,6 @@
     <string name="n8">8</string>
     <string name="n9">9</string>
     <string name="n">C</string>
+
 
 </resources>

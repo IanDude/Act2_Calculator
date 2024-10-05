@@ -1,6 +1,9 @@
 package com.example.act2_calculator;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         assignId(R.id.btn7);
         assignId(R.id.btn8);
         assignId(R.id.btn9);
+        assignId(R.id.btnrot);
     }
 
     @Override
@@ -70,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState(savedInstanceState);
         // Restore the solution text
         String savedSolution = savedInstanceState.getString("solutionText");
+
         solution.setText(savedSolution);
+
     }
 
     public void assignId(int id){
@@ -98,6 +104,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             return;
         }
+        if (buttontext.equals("↺")) {
+            int currentOrientation = getResources().getConfiguration().orientation;
+            if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            } else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+            Log.d("MainActivity", "Current Orientation: " + currentOrientation);
+            return;
+        }
+
         //checks if button clicked is % and calculates it already to the decimal point
         if (buttontext.equals("%")) {
             if (!dataToCalculate.isEmpty() && isNumeric(lastOperand(dataToCalculate))) {
@@ -118,9 +135,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(isOperator(buttontext)) {
             //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
             if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
-                return;
+                dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1)+buttontext;
+            }else{
+                dataToCalculate += buttontext;
             }
-            dataToCalculate += buttontext;
+
 
         }else{
             dataToCalculate += buttontext;
@@ -187,5 +206,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] tokens = data.split("[-+x/]");
         return tokens[tokens.length - 1];
     }
-
-    }
+}
