@@ -24,6 +24,9 @@
     <string name="n8">8</string>
     <string name="n9">9</string>
     <string name="n">C</string>
-
+    <string name="error_evaluating_expression">Error evaluating expression</string>
+    <string name="invalid_expression_ends_with_operator">Invalid expression: ends with an operator</string>
+    <string name="division_leads_to_infinity">Division leads to Infinity</string>
+    <string name="you_cannot_divide_by_zero">You cannot divide by zero</string>
 
 </resources>
