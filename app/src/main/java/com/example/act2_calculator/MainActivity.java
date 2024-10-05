@@ -110,12 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //checks if an operator button is clicked
     private boolean isOperator(String buttonope){
         return buttonope.equals("+") || buttonope.equals("-") ||
-                buttonope.equals("x") || buttonope.equals("/");
+                buttonope.equals("x") || buttonope.equals("÷");
     }
     //calculate the result for all the inputs
     public String getResult(String data){
         data = convertDoubleOperators(data);
         data = data.replace("x","*");
+        data = data.replace("÷","/");
         try{
             Context context = Context.enter();
             context.setOptimizationLevel(-1);
