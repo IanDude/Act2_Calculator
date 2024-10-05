@@ -8,17 +8,6 @@
     style="@style/MainLayout">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/solution"
-        android:text=""
-        android:textSize="76sp"
-        android:textAlignment="textEnd"
-        android:layout_margin="16dp"
-        android:layout_above="@+id/buttonslayout"
-        style="@style/TextviewStyle" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,154 +17,173 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/solution"
+                style="@style/TextviewStyle"
+                android:layout_width="829dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text=""
+                android:textAlignment="textEnd"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="9dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnclear"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:text="@string/Clear"
-                style="@style/FuncButtonStyle"/>
+                style="@style/FuncButtonStyle2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Clear" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnbckspc"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:text="@string/bckspc"
-                style="@style/FuncButtonStyle"/>
+                style="@style/FuncButtonStyle2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bckspc" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnmod"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:text="@string/Percent"
-                style="@style/OpeButtonStyle"/>
+                style="@style/OpeButtonStyle2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Percent" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btndivide"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:text="@string/Div"
-                style="@style/OpeButtonStyle"/>
+                style="@style/OpeButtonStyle2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Div" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="9dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn7"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n7"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn8"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n8"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn9"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n9"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnmulti"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:textSize="25sp"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
                 android:text="@string/Mult"
-                style="@style/OpeButtonStyle"/>
+                android:textSize="20dp"
+                style="@style/OpeButtonStyle2"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="9dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn4"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n4"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn5"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n5"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn6"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n6"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnminus"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/Minus"
-                style="@style/OpeButtonStyle"/>
+                style="@style/OpeButtonStyle2"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="9dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn1"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n1"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn2"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n2"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn3"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n3"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnplus"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/Plus"
-                style="@style/OpeButtonStyle"/>
+                style="@style/OpeButtonStyle2"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="9dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn0"
-                android:layout_width="168dp"
-                android:layout_height="72dp"
+                android:layout_width="375dp"
+                android:layout_height="wrap_content"
                 android:text="@string/n0"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btndot"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/Dot"
-                style="@style/MainButtonStyle"/>
+                style="@style/MainButtonStyle2"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btneqls"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:text="@string/Equals"
-                style="@style/OpeButtonStyle"/>
+                style="@style/OpeButtonStyle2"/>
         </LinearLayout>
 
 

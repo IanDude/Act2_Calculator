@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         solution = findViewById(R.id.solution);
 
+        // Restore the state if available
+        if (savedInstanceState != null) {
+            String savedSolution = savedInstanceState.getString("solutionText");
+            solution.setText(savedSolution);
+        }
+
         assignId(R.id.btnclear);
         assignId(R.id.btnbckspc);
         assignId(R.id.btndivide);
@@ -51,6 +57,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         assignId(R.id.btn8);
         assignId(R.id.btn9);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the current solution text
+        outState.putString("solutionText", solution.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore the solution text
+        String savedSolution = savedInstanceState.getString("solutionText");
+        solution.setText(savedSolution);
+    }
+
     public void assignId(int id){
         MaterialButton btn = findViewById(id);
         btn.setOnClickListener(this);

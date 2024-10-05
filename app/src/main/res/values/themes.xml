@@ -33,4 +33,31 @@
         <item name="android:layout_margin">12dp</item>
         <item name="backgroundTint">@color/Color2</item>
     </style>
+
+    <!--The second copy of styles specified for landscape orientation-->
+
+    <style name="MainButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="backgroundColor">@color/Color3</item>
+    </style>
+    <style name="FuncButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/Color3</item>
+    </style>
+    <style name="OpeButtonStyle2" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/Color2</item>
+    </style>
+
+
+
 </resources>
