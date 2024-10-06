@@ -738,7 +738,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Function to check if a character is an operator
     private boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '×' || c == '÷' || c == '%';
+        return c == '+' || c == '-' || c == 'x' || c == '÷' || c == '%';
     }
 
     // Function to adjust text size based on character hello test
