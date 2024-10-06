@@ -20,7 +20,7 @@ import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView solution,result;
+    TextView solution, result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,44 +75,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState(savedInstanceState);
         // Restore the solution text
         String savedSolution = savedInstanceState.getString("solutionText");
-
         solution.setText(savedSolution);
-
     }
 
-    public void assignId(int id){
+    public void assignId(int id) {
         MaterialButton btn = findViewById(id);
         btn.setOnClickListener(this);
     }
+
     @Override
-    public void onClick(View view){
-        String buttontext = ((MaterialButton)view).getText().toString();
+    public void onClick(View view) {
+        String buttontext = ((MaterialButton) view).getText().toString();
         String dataToCalculate = solution.getText().toString();
         String currentResult = result.getText().toString();
-        //resets everything back
-        if (buttontext.equals("C")){
+
+        // Handle backspace button ("⌫")
+        if (buttontext.equals("⌫")) {
+            if (!dataToCalculate.isEmpty()) {
+                dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1);
+            }
+            solution.setText(dataToCalculate);
+            adjustSolutionTextSize(); // Check text size after deleting
+            return;
+        }
+
+        // Resets everything back with clear button ("C")
+        if (buttontext.equals("C")) {
             solution.setText("");
             result.setText("");
             return;
         }
-        if (!currentResult.isEmpty() && isNumeric(buttontext) && !isLastCharOpe(dataToCalculate)){
-            result.setText("");
-            dataToCalculate = "";
-            solution.setText(buttontext);
-            return;
-        }
-        //solves the input
-        if(buttontext.equals("=")){
-            if (dataToCalculate.isEmpty()){
-                Toast.makeText(this,"Invalid input",Toast.LENGTH_SHORT).show();
+
+        // Allow equal ("=") button to function regardless of the length
+        if (buttontext.equals("=")) {
+            if (dataToCalculate.isEmpty()) {
                 return;
             }
             String finalResult = getResult(dataToCalculate);
-            if(!finalResult.equals("Error")){
+            if (!finalResult.equals("Error")) {
                 result.setText(finalResult);
             }
             return;
         }
+
+        // Check if solution text length is already 80, block further input (except for backspace, clear, and equals)
+        if (dataToCalculate.length() >= 80) {
+            Toast.makeText(this, "Maximum input length reached", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Handle case when a number is clicked right after a result is displayed
+        if (!currentResult.isEmpty() && isNumeric(buttontext) && !isLastCharOpe(dataToCalculate)) {
+            result.setText("");
+            dataToCalculate = "";
+            solution.setText(buttontext);
+            adjustSolutionTextSize(); // Check text size after setting the solution
+            return;
+        }
+
+        // Rotation button logic
         if (buttontext.equals("↺")) {
             int currentOrientation = getResources().getConfiguration().orientation;
             if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -124,100 +145,164 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        //checks if button clicked is % and calculates it already to the decimal point
-        if (buttontext.equals("%")) {
-            if (!dataToCalculate.isEmpty() && isNumeric(lastOperand(dataToCalculate))) {
-                // Get the last operand and convert it to percentage
+        // Handle dot input (".")
+        if (buttontext.equals(".")) {
+            if (dataToCalculate.isEmpty() || isLastCharOpe(dataToCalculate)) {
+                // If there's no number or an operator, append "0."
+                dataToCalculate += "0.";
+            } else {
+                // Get the last operand (number) to check for an existing dot
                 String lastOperand = lastOperand(dataToCalculate);
-                double percentValue = Double.parseDouble(lastOperand) / 100.0;
-                dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - lastOperand.length()) + percentValue;
-                solution.setText(dataToCalculate);
+                if (!lastOperand.contains(".")) {
+                    dataToCalculate += ".";
+                }
             }
+            solution.setText(dataToCalculate);
+            adjustSolutionTextSize(); // Check text size after setting the solution
             return;
         }
-        //removes last added item
-        if(buttontext.equals("⌫")){
-            if(!dataToCalculate.isEmpty()){
-                dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1);
 
+        // "%" button logic
+        if (buttontext.equals("%")) {
+            if (dataToCalculate.isEmpty()) {
+                return;
             }
-        }else if(isOperator(buttontext)) {
-            //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
-            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
-                dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1)+buttontext;
+            if (isLastCharOpe(dataToCalculate)) {
+                solution.setText(dataToCalculate);
+            } else {
+                dataToCalculate += "%";
+                solution.setText(dataToCalculate);
             }
-            else{
+            adjustSolutionTextSize(); // Check text size after setting the solution
+            return;
+        }
+
+        // Add input (non-backspace, non-clear, and non-equals buttons)
+        if (isOperator(buttontext)) {
+            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate) && !dataToCalculate.endsWith("%")) {
+                if (dataToCalculate.endsWith("-") && buttontext.equals("-")) {
+                    char charBeforeMinus = dataToCalculate.length() > 1 ? dataToCalculate.charAt(dataToCalculate.length() - 2) : '\0';
+                    if (Character.isDigit(charBeforeMinus)) {
+                        dataToCalculate += "-";
+                    } else {
+                        dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
+                    }
+                } else {
+                    dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
+                }
+            } else {
                 dataToCalculate += buttontext;
-
             }
-        }else{
+        } else {
             dataToCalculate += buttontext;
         }
 
         solution.setText(dataToCalculate);
-
+        adjustSolutionTextSize(); // Check text size after setting the solution
     }
-    //checks if an operator button is clicked
-    private boolean isOperator(String buttonope){
+
+
+
+
+    // Method to check text length and adjust text size
+    private void adjustSolutionTextSize() {
+        if (solution.getText().length() > 16 && (solution.getText().length() < 36)) {
+            solution.setTextSize(50); // Set to a smaller text size as needed
+        }else if (solution.getText().length() >= 36){
+            solution.setTextSize(30);
+        }else {
+            solution.setTextSize(76); // Set to default text size if below threshold
+        }
+    }
+
+    // Checks if an operator button is clicked
+    private boolean isOperator(String buttonope) {
         return buttonope.equals("+") || buttonope.equals("-") ||
                 buttonope.equals("×") || buttonope.equals("÷") ||
                 buttonope.equals("%");
     }
-    //calculate the result for all the inputs
-    public String getResult(String data){
+
+    // Calculate the result for all the inputs
+    public String getResult(String data) {
+        // Remove all spaces
+        data = data.replaceAll("\\s+", "");
+
+        // Remove the last character if it's an operator
+        if (!data.isEmpty() && isOperator(String.valueOf(data.charAt(data.length() - 1)))) {
+            data = data.substring(0, data.length() - 1); // Remove the last character
+        }
+
+        // Handle percentage
+        data = data.replaceAll("%", "/100");
+
+        // Check if the last character is an operator after potential removal
+        if (!data.isEmpty() && (data.endsWith("+") || data.endsWith("-") ||
+                data.endsWith("*") || data.endsWith("/") || data.endsWith("%"))) {
+            Toast.makeText(this, getString(R.string.invalidExpression), Toast.LENGTH_SHORT).show();
+            return "Error";
+        }
+
+        // Check for division by zero
+        if (data.matches(".*/0(\\D|$)") || data.matches(".*/0\\.$") ||
+                data.matches(".*/0\\s*") || data.matches("\\D*0\\s*\\D*0\\s*$")) {
+            Toast.makeText(this, getString(R.string.zeroDivision), Toast.LENGTH_SHORT).show();
+            return "Error";
+        }
+
         data = convertDoubleOperators(data);
-        data = data.replace("×","*");
-        data = data.replace("÷","/");
-        try{
+        data = data.replace("×", "*");
+        data = data.replace("÷", "/");
+
+        try {
             Context context = Context.enter();
             context.setOptimizationLevel(-1);
             Scriptable scriptable = context.initStandardObjects();
-            String finalResult = context.evaluateString(scriptable, data, "Javascript",1,null).toString();
-            if (finalResult.equals("Infinity") || finalResult.equals("NaN")){
-                Toast.makeText(this,"Division Error",Toast.LENGTH_SHORT).show();
+            String finalResult = context.evaluateString(scriptable, data, "Javascript", 1, null).toString();
+
+            // Check for Infinity or NaN results
+            if (finalResult.equals("Infinity") || finalResult.equals("NaN")) {
+                Toast.makeText(this, getString(R.string.zeroDivision), Toast.LENGTH_SHORT).show();
                 return "Error";
             }
-            if(finalResult.endsWith(".0")){
-                finalResult = finalResult.replace(".0","");
+
+            // Format the result to remove trailing .0
+            if (finalResult.endsWith(".0")) {
+                finalResult = finalResult.substring(0, finalResult.length() - 2);
             }
             return finalResult;
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             return "Error";
-        }finally {
-            Context.exit();
         }
     }
 
-    //double checks for sign integer computations
-    private String convertDoubleOperators(String data){
-        data = data.replaceAll("--","+");
-        data = data.replaceAll("\\+-","-");
-        data = data.replaceAll("-\\+","-");
-        data = data.replaceAll("\\+\\+","+");
-        if (data.startsWith("+")){
-            data = data.substring(1);
-        }
-        return data;
+    // Convert double operators into single operator
+    private String convertDoubleOperators(String data) {
+        return data.replaceAll("\\+{2,}", "+")
+                .replaceAll("-{2,}", "-")
+                .replaceAll("\\*{2,}", "*")
+                .replaceAll("/{2,}", "/")
+                .replaceAll("%{2,}", "%");
     }
-    //checks if the last input is operator then prevents inputting another operator
-    private boolean isLastCharOpe(String data){
-        if (data.isEmpty()){
-            return false;
-        }
-        char lastChar = data.charAt(data.length()-1);
-        return isOperator(String.valueOf(lastChar));
-    }
-    //checks if current solution is numeric only
-    private boolean isNumeric(String data){
-        try{
-            Double.parseDouble(data);
+
+    // Checks if the string is numeric
+    public boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
             return true;
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
+
+    // Checks if the last character is an operator
+    public boolean isLastCharOpe(String data) {
+        return !data.isEmpty() && isOperator(String.valueOf(data.charAt(data.length() - 1)));
+    }
+
+    // Get the last operand from the input string
     private String lastOperand(String data) {
-        String[] tokens = data.split("[-+×÷]");
-        return tokens[tokens.length - 1];
+        String[] operands = data.split("(?<=[-+*/])|(?=[-+*/])");
+        return operands.length > 0 ? operands[operands.length - 1] : "";
     }
 }
