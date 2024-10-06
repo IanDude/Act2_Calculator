@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // Check if solution text length is already 80, block further input (except for backspace, clear, and equals)
-        if (dataToCalculate.length() >= 80) {
+        if (dataToCalculate.length() >= 50) {
             Toast.makeText(this, "Maximum input length reached", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -206,10 +206,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Method to check text length and adjust text size
     private void adjustSolutionTextSize() {
-        if (solution.getText().length() > 16 && (solution.getText().length() < 36)) {
+        if (solution.getText().length() > 6 && (solution.getText().length() < 11)) {
             solution.setTextSize(50); // Set to a smaller text size as needed
-        }else if (solution.getText().length() >= 36){
+        }else if (solution.getText().length() >= 11 && (solution.getText().length() < 38)){
             solution.setTextSize(30);
+        }else if (solution.getText().length() >= 38){
+            solution.setTextSize(20);
         }else {
             solution.setTextSize(76); // Set to default text size if below threshold
         }
