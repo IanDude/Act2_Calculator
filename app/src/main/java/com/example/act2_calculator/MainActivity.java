@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -63,14 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save the current solution text
         outState.putString("solutionText", solution.getText().toString());
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         // Restore the solution text
         String savedSolution = savedInstanceState.getString("solutionText");
@@ -95,11 +96,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //solves the input
         if(buttontext.equals("=")){
             if (dataToCalculate.isEmpty()){
-                Toast.makeText(this,"Please input number.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Invalid input",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (dataToCalculate.equals("Error")){
+                Toast.makeText(this,"Invalid input.",Toast.LENGTH_SHORT).show();
                 return;
             }
             String finalResult = getResult(dataToCalculate);
             if(!finalResult.equals("Error")){
+                solution.setText(finalResult);
+            }else{
                 solution.setText(finalResult);
             }
             return;
@@ -132,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1);
 
             }
+            if (dataToCalculate.equals("Error")){
+                solution.setText(" ");
+            }
         }else if(isOperator(buttontext)) {
             //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
             if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
@@ -151,18 +161,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //checks if an operator button is clicked
     private boolean isOperator(String buttonope){
         return buttonope.equals("+") || buttonope.equals("-") ||
-                buttonope.equals("x") || buttonope.equals("÷");
+                buttonope.equals("×") || buttonope.equals("÷") || buttonope.equals("%");
     }
     //calculate the result for all the inputs
     public String getResult(String data){
         data = convertDoubleOperators(data);
-        data = data.replace("x","*");
+        data = data.replace("×","*");
         data = data.replace("÷","/");
         try{
             Context context = Context.enter();
             context.setOptimizationLevel(-1);
             Scriptable scriptable = context.initStandardObjects();
             String finalResult = context.evaluateString(scriptable, data, "Javascript",1,null).toString();
+            if (finalResult.equals("Infinity") || finalResult.equals("NaN")){
+                return "Error";
+            }
             if(finalResult.endsWith(".0")){
                 finalResult = finalResult.replace(".0","");
             }
