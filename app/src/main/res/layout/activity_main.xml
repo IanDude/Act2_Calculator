@@ -19,6 +19,16 @@
         android:layout_margin="16dp"
         android:layout_above="@+id/buttonslayout"
         style="@style/TextviewStyle" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/result"
+        android:text=""
+        android:textSize="36sp"
+        android:textAlignment="textEnd"
+        android:layout_margin="16dp"
+        android:layout_above="@+id/solution"
+        style="@style/TextviewStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"

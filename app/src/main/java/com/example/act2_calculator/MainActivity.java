@@ -20,8 +20,7 @@ import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView solution;
-
+    TextView solution,result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return insets;
         });
         solution = findViewById(R.id.solution);
+        result = findViewById(R.id.result);
 
         // Restore the state if available
         if (savedInstanceState != null) {
@@ -88,9 +88,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         String buttontext = ((MaterialButton)view).getText().toString();
         String dataToCalculate = solution.getText().toString();
+        String currentResult = result.getText().toString();
         //resets everything back
         if (buttontext.equals("C")){
             solution.setText("");
+            result.setText("");
+            return;
+        }
+        if (!currentResult.isEmpty() && isNumeric(buttontext) && !isLastCharOpe(dataToCalculate)){
+            result.setText("");
+            dataToCalculate = "";
+            solution.setText(buttontext);
             return;
         }
         //solves the input
@@ -99,15 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this,"Invalid input",Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (dataToCalculate.equals("Error")){
-                Toast.makeText(this,"Invalid input.",Toast.LENGTH_SHORT).show();
-                return;
-            }
             String finalResult = getResult(dataToCalculate);
             if(!finalResult.equals("Error")){
-                solution.setText(finalResult);
-            }else{
-                solution.setText(finalResult);
+                result.setText(finalResult);
             }
             return;
         }
@@ -141,13 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }else if(isOperator(buttontext)) {
             //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
-            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate) && !buttontext.equals("-")){
+            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
                 dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1)+buttontext;
-            }else{
-                dataToCalculate += buttontext;
             }
+            else{
+                dataToCalculate += buttontext;
 
-
+            }
         }else{
             dataToCalculate += buttontext;
         }
@@ -158,7 +160,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //checks if an operator button is clicked
     private boolean isOperator(String buttonope){
         return buttonope.equals("+") || buttonope.equals("-") ||
-                buttonope.equals("×") || buttonope.equals("÷") || buttonope.equals("%");
+                buttonope.equals("×") || buttonope.equals("÷") ||
+                buttonope.equals("%");
     }
     //calculate the result for all the inputs
     public String getResult(String data){
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Scriptable scriptable = context.initStandardObjects();
             String finalResult = context.evaluateString(scriptable, data, "Javascript",1,null).toString();
             if (finalResult.equals("Infinity") || finalResult.equals("NaN")){
+                Toast.makeText(this,"Division Error",Toast.LENGTH_SHORT).show();
                 return "Error";
             }
             if(finalResult.endsWith(".0")){
@@ -213,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private String lastOperand(String data) {
-        String[] tokens = data.split("[-+x/]");
+        String[] tokens = data.split("[-+×÷]");
         return tokens[tokens.length - 1];
     }
 }
