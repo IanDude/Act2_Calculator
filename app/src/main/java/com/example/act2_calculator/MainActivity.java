@@ -139,12 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1);
 
             }
-            if (dataToCalculate.equals("Error")){
-                solution.setText(" ");
-            }
         }else if(isOperator(buttontext)) {
             //checks if isOperator function is true and if there is existing number in result, then appending it for the next solution
-            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate)){
+            if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate) && !buttontext.equals("-")){
                 dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1)+buttontext;
             }else{
                 dataToCalculate += buttontext;
