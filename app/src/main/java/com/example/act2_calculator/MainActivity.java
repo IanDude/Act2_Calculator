@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String finalResult = getResult(dataToCalculate);
             if (!finalResult.equals("Error")) {
                 result.setText(finalResult);
+                adjustSolutionTextSizeRes();
             }
             return;
         }
@@ -175,7 +176,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             if (isLastCharOpe(dataToCalculate)) {
                 solution.setText(dataToCalculate);
-            } else {
+            }else if(dataToCalculate.endsWith(".")){
+                return;
+            }else {
                 dataToCalculate += "%";
                 solution.setText(dataToCalculate);
             }
@@ -185,7 +188,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Add input (non-backspace, non-clear, and non-equals buttons)
         if (isOperator(buttontext)) {
+            if(dataToCalculate.isEmpty() && !buttontext.equals("-")){
+
+                return;
+            }
+            if(dataToCalculate.length() == 1 && dataToCalculate.equals("-")) {
+                return;
+            }
             if (!dataToCalculate.isEmpty() && isLastCharOpe(dataToCalculate) && !dataToCalculate.endsWith("%")) {
+
                 if (dataToCalculate.endsWith("-") && buttontext.equals("-")) {
                     char charBeforeMinus = dataToCalculate.length() > 1 ? dataToCalculate.charAt(dataToCalculate.length() - 2) : '\0';
                     if (Character.isDigit(charBeforeMinus)) {
@@ -193,23 +204,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
                     }
-                } else {
+                }else if (dataToCalculate.endsWith("+") && buttontext.equals("-")) {
+                    char charBeforeMinus = dataToCalculate.length() > 1 ? dataToCalculate.charAt(dataToCalculate.length() - 2) : '\0';
+                    if (Character.isDigit(charBeforeMinus)) {
+                        dataToCalculate += "-";
+                    } else {
+                        dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
+                    }
+                }else if (dataToCalculate.endsWith("×") && buttontext.equals("-")) {
+                    char charBeforeMinus = dataToCalculate.length() > 1 ? dataToCalculate.charAt(dataToCalculate.length() - 2) : '\0';
+                    if (Character.isDigit(charBeforeMinus)) {
+                        dataToCalculate += "-";
+                    } else {
+                        dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
+                    }
+                }else if (dataToCalculate.endsWith("-") && !buttontext.equals("-")) {
+                    return;
+                }  else {
                     dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1) + buttontext;
                 }
-            } else {
+            }
+            else {
                 dataToCalculate += buttontext;
             }
+
         } else {
             dataToCalculate += buttontext;
         }
 
+
         solution.setText(dataToCalculate);
         adjustSolutionTextSize(); // Check text size after setting the solution
     }
-
-
-
-
     // Method to check text length and adjust text size
     private void adjustSolutionTextSize() {
         if (solution.getText().length() > 6 && (solution.getText().length() < 11)) {
@@ -220,6 +246,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             solution.setTextSize(20);
         }else {
             solution.setTextSize(76); // Set to default text size if below threshold
+        }
+    }
+    private void adjustSolutionTextSizeRes() {
+        if (result.getText().length() > 6 && (result.getText().length() < 11)) {
+            result.setTextSize(26); // Set to a smaller text size as needed
+        }else if (result.getText().length() >= 11 && (result.getText().length() < 38)){
+            result.setTextSize(16);
+        }else if (result.getText().length() >= 38){
+            result.setTextSize(10);
+        }else {
+            result.setTextSize(36); // Set to default text size if below threshold
         }
     }
 
@@ -234,14 +271,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String getResult(String data) {
         // Remove all spaces
         data = data.replaceAll("\\s+", "");
-
+        // Handle percentage
+        data = handlePercentage(data);
         // Remove the last character if it's an operator
         if (!data.isEmpty() && isOperator(String.valueOf(data.charAt(data.length() - 1)))) {
             data = data.substring(0, data.length() - 1); // Remove the last character
         }
 
-        // Handle percentage
-        data = data.replaceAll("%", "/100");
+
 
         // Check if the last character is an operator after potential removal
         if (!data.isEmpty() && (data.endsWith("+") || data.endsWith("-") ||
@@ -279,7 +316,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return finalResult;
         } catch (Exception e) {
-            e.printStackTrace();
             return "Error";
         }
     }
@@ -313,4 +349,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] operands = data.split("(?<=[-+*/])|(?=[-+*/])");
         return operands.length > 0 ? operands[operands.length - 1] : "";
     }
+    private String handlePercentage(String data) {
+        StringBuilder newData = new StringBuilder();
+        String[] tokens = data.split("(?=[+\\-×÷])|(?<=[+\\-×÷])");
+
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].contains("%")) {
+                // Replace percentage with its equivalent decimal value
+                String num = tokens[i].replace("%", "");
+                if (isNumeric(num)) {
+                    double value = Double.parseDouble(num) / 100;
+                    tokens[i] = String.valueOf(value);
+                }
+            }
+        }
+
+        for (String token : tokens) {
+            newData.append(token);
+        }
+        return newData.toString();
+    }
+
 }

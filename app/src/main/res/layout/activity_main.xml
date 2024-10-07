@@ -8,19 +8,22 @@
     tools:context=".MainActivity"
     style="@style/MainLayout">
 
+
     <TextView
         android:id="@+id/result"
         style="@style/TextviewStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="16dp"
-        android:gravity="end|center_vertical"
-        android:maxLines="1"
+        android:layout_marginTop="72dp"
         android:ellipsize="end"
+        android:gravity="end|center_vertical"
+        android:maxLines="2"
         android:text=""
         android:textAlignment="textEnd"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,17 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="16dp"
+        android:ellipsize="end"
         android:gravity="end|center_vertical"
         android:maxLines="2"
-        android:ellipsize="end"
         android:text=""
         android:textAlignment="textEnd"
         android:textSize="72sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonslayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/result"
-        app:layout_constraintBottom_toTopOf="@+id/buttonslayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/result" />
 
     <LinearLayout
         android:id="@+id/buttonslayout"
