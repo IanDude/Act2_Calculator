@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putString("solutionText", solution.getText().toString());
     }
 
+
+
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -98,6 +100,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        if (buttontext.equals("%")) {
+            if (!dataToCalculate.isEmpty() && isNumeric(lastOperand(dataToCalculate))) {
+                // Get the last operand and convert it to percentage
+                String lastOperand = lastOperand(dataToCalculate);
+                double percentValue = Double.parseDouble(lastOperand) / 100.0;
+                dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - lastOperand.length()) + percentValue;
+                solution.setText(dataToCalculate);
+            }
+            return;
+        }
         // Resets everything back with clear button ("C")
         if (buttontext.equals("C")) {
             solution.setText("");
@@ -139,13 +151,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             adjustSolutionTextSize(); // Check text size after setting the solution
             return;
         }
-
         // Rotation button logic
         if (buttontext.equals("↺")) {
             int currentOrientation = getResources().getConfiguration().orientation;
             if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            } else {
+            } else if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
             Log.d("MainActivity", "Current Orientation: " + currentOrientation);
@@ -231,8 +242,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             dataToCalculate += buttontext;
         }
-
-
         solution.setText(dataToCalculate);
         adjustSolutionTextSize(); // Check text size after setting the solution
     }
@@ -245,18 +254,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if (solution.getText().length() >= 38){
             solution.setTextSize(20);
         }else {
-            solution.setTextSize(76); // Set to default text size if below threshold
+            solution.setTextSize(50); // Set to default text size if below threshold
         }
     }
     private void adjustSolutionTextSizeRes() {
         if (result.getText().length() > 6 && (result.getText().length() < 11)) {
             result.setTextSize(26); // Set to a smaller text size as needed
-        }else if (result.getText().length() >= 11 && (result.getText().length() < 38)){
-            result.setTextSize(16);
-        }else if (result.getText().length() >= 38){
-            result.setTextSize(10);
+
         }else {
-            result.setTextSize(36); // Set to default text size if below threshold
+            result.setTextSize(30); // Set to default text size if below threshold
         }
     }
 
@@ -271,15 +277,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String getResult(String data) {
         // Remove all spaces
         data = data.replaceAll("\\s+", "");
-        // Handle percentage
-        data = handlePercentage(data);
         // Remove the last character if it's an operator
         if (!data.isEmpty() && isOperator(String.valueOf(data.charAt(data.length() - 1)))) {
             data = data.substring(0, data.length() - 1); // Remove the last character
         }
-
-
-
         // Check if the last character is an operator after potential removal
         if (!data.isEmpty() && (data.endsWith("+") || data.endsWith("-") ||
                 data.endsWith("*") || data.endsWith("/") || data.endsWith("%"))) {
@@ -346,28 +347,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Get the last operand from the input string
     private String lastOperand(String data) {
-        String[] operands = data.split("(?<=[-+*/])|(?=[-+*/])");
+        String[] operands = data.split("(?<=[-+×/])|(?=[-+×/])");
         return operands.length > 0 ? operands[operands.length - 1] : "";
     }
-    private String handlePercentage(String data) {
-        StringBuilder newData = new StringBuilder();
-        String[] tokens = data.split("(?=[+\\-×÷])|(?<=[+\\-×÷])");
 
-        for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].contains("%")) {
-                // Replace percentage with its equivalent decimal value
-                String num = tokens[i].replace("%", "");
-                if (isNumeric(num)) {
-                    double value = Double.parseDouble(num) / 100;
-                    tokens[i] = String.valueOf(value);
-                }
-            }
-        }
-
-        for (String token : tokens) {
-            newData.append(token);
-        }
-        return newData.toString();
-    }
 
 }
