@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn.setOnClickListener(this);
     }
 
-    @Override
     public void onClick(View view) {
         String buttontext = ((MaterialButton) view).getText().toString();
         String dataToCalculate = solution.getText().toString();
@@ -125,10 +124,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // Handle case when a number is clicked right after a result is displayed
-        if (!currentResult.isEmpty() && isNumeric(buttontext) && !isLastCharOpe(dataToCalculate)) {
-            result.setText("");
-            dataToCalculate = "";
-            solution.setText(buttontext);
+        if (!currentResult.isEmpty()) {
+            // If a number is pressed, reset the solution text
+            if (isNumeric(buttontext)) {
+                dataToCalculate = buttontext; // Clear and set number
+                result.setText(""); // Clear the result
+            } else if (isOperator(buttontext)) {
+                // If an operator is pressed, append to the current result
+                dataToCalculate = currentResult + buttontext;
+                result.setText(""); // Clear the result for next calculation
+            }
+            solution.setText(dataToCalculate);
             adjustSolutionTextSize(); // Check text size after setting the solution
             return;
         }
